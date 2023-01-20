@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace PowerStatusApp
 {
@@ -282,6 +283,10 @@ namespace PowerStatusApp
                 sTime += ts.Milliseconds.ToString("000") + "ミリ秒";
 
                 LblTime.Text = "充電開始からの経過時間：" + sTime;
+            }
+            if (!IsStart && !IsCharge)
+            {
+                LblTime.Text = DateTime.Now.ToString("　　yyyy年 MM月 dd日 HH時 mm分 ss秒");
             }
         }
 
