@@ -244,18 +244,20 @@ namespace PowerStatusApp
                     sTime += ts.Minutes.ToString("00") + "分 ";
                 }
 
-                if (ts.Seconds > 0)
-                {
-                    sTime += ts.Seconds.ToString("00") + "秒 ";
-                }
+                //if (ts.Seconds > 0)
+                //{
+                //    sTime += ts.Seconds.ToString("00") + "秒 ";
+                //}
 
-                if (ts.Milliseconds > 0)
-                {
-                    sTime += ts.Milliseconds.ToString("000") + "ミリ秒";
-                }
+                //if (ts.Milliseconds > 0)
+                //{
+                //    sTime += ts.Milliseconds.ToString("000") + "ミリ秒";
+                //}
 
-                //LblTime.Text = $"　{ts.Hours}時間 {ts.Minutes}分 {ts.Seconds}秒 {ts.Milliseconds}ミリ秒";
-                LblTime.Text = "経過時間：" + sTime;
+                sTime += ts.Seconds.ToString("00") + "秒 ";
+                sTime += ts.Milliseconds.ToString("000") + "ミリ秒";
+                
+                LblTime.Text = "電源オフライン時からの経過時間：" + sTime;
             }
             else
             {

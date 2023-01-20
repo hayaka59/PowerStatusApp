@@ -112,11 +112,11 @@
             // 
             // LblTime
             // 
-            this.LblTime.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblTime.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LblTime.ForeColor = System.Drawing.Color.Red;
-            this.LblTime.Location = new System.Drawing.Point(97, 160);
+            this.LblTime.Location = new System.Drawing.Point(83, 169);
             this.LblTime.Name = "LblTime";
-            this.LblTime.Size = new System.Drawing.Size(430, 37);
+            this.LblTime.Size = new System.Drawing.Size(444, 28);
             this.LblTime.TabIndex = 6;
             this.LblTime.Text = "LblTime";
             this.LblTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
