@@ -28,6 +28,8 @@ namespace PowerStatusApp
             TimCheck.Enabled = true;
         }
 
+        private bool IsCharge;
+
         /// <summary>
         /// バッテリーの充電状態を取得する
         /// </summary>
@@ -60,6 +62,12 @@ namespace PowerStatusApp
                     if ((bcs & BatteryChargeStatus.Charging) == BatteryChargeStatus.Charging)
                     {
                         sMessage = "充電中です";
+                        if (!IsCharge)
+                        {
+                            IsCharge = true;
+                            swCharge = new Stopwatch();
+                            swCharge.Start();
+                        }
                     }
                     if ((bcs & BatteryChargeStatus.NoSystemBattery) == BatteryChargeStatus.NoSystemBattery)
                     {
@@ -77,7 +85,8 @@ namespace PowerStatusApp
         }
 
         private bool IsStart;
-        private Stopwatch sw = new();
+        private Stopwatch swOffLine = new();
+        private Stopwatch swCharge = new();
 
         /// <summary>
         /// AC電源の状態を取得する
@@ -97,8 +106,8 @@ namespace PowerStatusApp
                         if (!IsStart)
                         {
                             IsStart = true;
-                            sw = new Stopwatch();
-                            sw.Start();                            
+                            swOffLine = new Stopwatch();
+                            swOffLine.Start();                            
                         }
                         break;
                     case PowerLineStatus.Online:
@@ -231,7 +240,7 @@ namespace PowerStatusApp
             GetBatteryStatus();
             if (IsStart)
             {
-                TimeSpan ts = sw.Elapsed;
+                TimeSpan ts = swOffLine.Elapsed;
                 string sTime = "";
                 
                 if (ts.Hours > 0)
@@ -244,16 +253,6 @@ namespace PowerStatusApp
                     sTime += ts.Minutes.ToString("00") + "分 ";
                 }
 
-                //if (ts.Seconds > 0)
-                //{
-                //    sTime += ts.Seconds.ToString("00") + "秒 ";
-                //}
-
-                //if (ts.Milliseconds > 0)
-                //{
-                //    sTime += ts.Milliseconds.ToString("000") + "ミリ秒";
-                //}
-
                 sTime += ts.Seconds.ToString("00") + "秒 ";
                 sTime += ts.Milliseconds.ToString("000") + "ミリ秒";
                 
@@ -262,6 +261,27 @@ namespace PowerStatusApp
             else
             {
                 LblTime.Text = "";
+            }
+            // 充電中のチェック
+            if (IsCharge)
+            {
+                TimeSpan ts = swCharge.Elapsed;
+                string sTime = "";
+
+                if (ts.Hours > 0)
+                {
+                    sTime += ts.Hours.ToString("00") + "時間 ";
+                }
+
+                if (ts.Minutes > 0)
+                {
+                    sTime += ts.Minutes.ToString("00") + "分 ";
+                }
+
+                sTime += ts.Seconds.ToString("00") + "秒 ";
+                sTime += ts.Milliseconds.ToString("000") + "ミリ秒";
+
+                LblTime.Text = "充電開始からの経過時間：" + sTime;
             }
         }
 
